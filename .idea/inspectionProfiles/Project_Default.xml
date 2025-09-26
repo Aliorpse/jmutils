@@ -1,0 +1,21 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="IncorrectHttpHeaderInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="customHeaders">
+        <set>
+          <option value="upgrade-insecure-requests" />
+          <option value="sec-fetch-user" />
+          <option value="sec-fetch-site" />
+          <option value="sec-fetch-mode" />
+          <option value="sec-fetch-dest" />
+          <option value="sec-ch-ua-platform" />
+          <option value="sec-ch-ua-mobile" />
+          <option value="sec-ch-ua" />
+          <option value="priority" />
+          <option value="dnt" />
+        </set>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
