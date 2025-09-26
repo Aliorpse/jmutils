@@ -4,7 +4,11 @@
 
 基于 kotlin 的 JMComic 库
 
-## Installation
+使用 Web API, 对 IP 要求有点高, 不过可以自定义接口的
+
+默认实现不改动任何配置的情况下, Tests 中那 194 页我自己机子上跑8秒就好了, 主打一个快
+
+## 安装
 
 ```kotlin
 repositories {
