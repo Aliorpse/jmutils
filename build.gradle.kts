@@ -20,7 +20,7 @@ dependencies {
     api("org.jetbrains.skiko:skiko-awt:0.9.24")
 
     api("com.github.librepdf:openpdf:3.0.0")
-    api("org.bouncycastle:bcprov-jdk15on:1.70")
+    api("org.bouncycastle:bcprov-jdk18on:1.82")
 
     api("com.fleeksoft.ksoup:ksoup:0.2.5")
 
