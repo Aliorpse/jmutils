@@ -36,10 +36,11 @@ public object JmUtils {
     /**
      * 获取一个 Album 的基本信息
      *
+     * 返回 null 表示不存在
+     *
      * @param albumId 车号
-     * @throws IllegalStateException 当 Album 不存在
      */
-    public suspend fun getAlbumInfo(albumId: Int): JmAlbum {
+    public suspend fun getAlbumInfo(albumId: Int): JmAlbum? {
         val response = semaphore.withPermit {
             JmUtilsHttpClientProvider.httpClient.get("https://18comic.vip/album/$albumId") {
                 headers.appendAll(JmConstants.htmlHeaders())
@@ -49,7 +50,7 @@ public object JmUtils {
         val doc = Ksoup.parse(response)
 
         val trainDiv = doc.selectFirst("div.absolute.train-number")
-            ?: error("Album $albumId not found")
+            ?: return null
 
         return JmAlbum(
             albumId = trainDiv.selectFirst("span.number")?.text()!!.removePrefix("禁漫车：JM").toInt(),

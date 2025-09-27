@@ -12,7 +12,8 @@ class BydTests {
     fun testGetAlbum() {
         val albumId = 1216733
         runBlocking {
-            val result = getAlbumInfo(albumId)
+            val result = getAlbumInfo(albumId) ?: error("Result doesn't exist")
+
             val time = measureTimeMillis {
                 result.download().exportPdf(
                     "./albums/$albumId.pdf",
