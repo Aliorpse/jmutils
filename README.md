@@ -23,21 +23,20 @@ dependencies {
 }
 ```
 
-## 功能
-
-### 获取 Album
+## 演示
 
 ```kotlin
+val albumId = 277707
+
 runBlocking {
-    val albumId = 1216733
-    
-    val result = getAlbumInfo(albumId)
-    val time = measureTimeMillis {
-        result.download().exportPdf(
-            "./albums/$albumId.pdf",
-            albumId.toString()
-        )
-    }
-    println("Finished, used ${time}ms")
+    val album = getAlbum(albumId)
+        ?: error("Result doesn't exist")
+    val chapter = getChapter(album.chapters!!.random())
+        ?: error("Result doesn't exist")
+
+    chapter.download().exportPdf(
+        "./albums/${chapter.chapterId}.pdf",
+        chapter.chapterId.toString()
+    )
 }
 ```
