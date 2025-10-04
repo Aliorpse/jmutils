@@ -3,25 +3,26 @@ package tech.aliorpse.jmutils
 import kotlinx.coroutines.runBlocking
 import tech.aliorpse.jmutils.core.JmUtils.download
 import tech.aliorpse.jmutils.core.JmUtils.exportPdf
-import tech.aliorpse.jmutils.core.JmUtils.getAlbumInfo
-import kotlin.system.measureTimeMillis
+import tech.aliorpse.jmutils.core.JmUtils.getAlbum
+import tech.aliorpse.jmutils.core.JmUtils.getChapter
 import kotlin.test.Test
 
 class BydTests {
     @Test
     fun testGetAlbum() {
-        val albumId = 1216733
+        val albumId = 277707
         runBlocking {
-            val result = getAlbumInfo(albumId) ?: error("Result doesn't exist")
+            val album = getAlbum(albumId)
+                ?: error("Result doesn't exist")
+            val chapter = getChapter(album.chapters!!.random())
+                ?: error("Result doesn't exist")
 
-            val time = measureTimeMillis {
-                result.download().exportPdf(
-                    "./albums/$albumId.pdf",
-                    albumId.toString()
-                )
-            }
-            println("Finished, used ${time}ms")
+            chapter.download().exportPdf(
+                "./albums/${chapter.chapterId}.pdf",
+                chapter.chapterId.toString()
+            )
+
+            println(chapter.chapterId)
         }
-
     }
 }

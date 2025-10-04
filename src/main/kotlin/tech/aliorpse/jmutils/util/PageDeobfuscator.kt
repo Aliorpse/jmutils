@@ -22,15 +22,15 @@ public object PageDeobfuscator {
     public fun getScrambleNum(aid: Int, page: Int): Int {
         val pageStr = String.format(Locale.ROOT, "%05d", page)
 
-        if (aid < 220980) return 0
-        if (aid < 268850) return 10
+        if (aid < JmConstants.SCRAMBLE_220980) return 0
+        if (aid < JmConstants.SCRAMBLE_268850) return 10
 
         val md5 = MessageDigest.getInstance("MD5")
             .digest("$aid$pageStr".toByteArray())
 
         val hex = md5.joinToString("") { "%02x".format(it) }
         val code = hex[31].code
-        val arraySize = if (aid < 421926) 10 else 8
+        val arraySize = if (aid < JmConstants.SCRAMBLE_421926) 10 else 8
         val choices = IntArray(arraySize) { (it + 1) * 2 }
         return choices[code % arraySize]
     }
@@ -52,11 +52,7 @@ public object PageDeobfuscator {
     ): ByteArray = withContext(Dispatchers.Default) {
         val splitCount = getScrambleNum(aid, page)
 
-        val srcImage = try {
-            Image.makeFromEncoded(input)
-        } catch (e: Exception) {
-            throw IllegalArgumentException("failed to decode input image: ${e.message}", e)
-        }
+        val srcImage = Image.makeFromEncoded(input)
 
         try {
             // 如果没有混淆, 直接返回
